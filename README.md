@@ -15,7 +15,7 @@ cd frontend
 yarn install
 yarn build
 cp ../to_copy_in_build/* build/
-`
+```
 
 ## fix passwords
 - put ftp passwords in file: `scraper/do_scrape.sh`
