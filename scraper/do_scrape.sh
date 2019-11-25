@@ -1,4 +1,5 @@
 cd /home/bitnami/htdocs/campscapes/scraper
+
 node update.js . --pagesize=20
 
 cd ./campscapes-data

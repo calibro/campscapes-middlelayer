@@ -1,4 +1,5 @@
 const { spawn } = require('child_process')
+const kill = require('tree-kill');
 
 const runners = {}
 
@@ -71,7 +72,13 @@ function tryStartRunner(name, command, args, options) {
 function killRunner(name) {
   const runner = runners[name]
   if (runner && runner.exitCode === null && !runner.killed) {
-    runner.kill('SIGKILL')
+    kill(runner.pid, 'SIGKILL', function(err){
+      if(!err){
+        runner.killed = true
+      } else {
+        console.error("err killing process", err)
+      }
+    })
   }
 }
 

@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const colors = require("colors/safe");
 const program = require("commander");
 const api = require("./api");
 const keyBy = require("lodash/keyBy");
@@ -26,24 +25,18 @@ async function main(options) {
   //creating subdir
   try {
     if (!fs.statSync(targetDir).isDirectory()) {
-      console.error(
-        colors.red(`${CAMPSCAPES_DATA_DIRNAME} exists and it's not a directory`)
-      );
+      console.error(`${CAMPSCAPES_DATA_DIRNAME} exists and it's not a directory`);
       process.exit(1);
     } else {
-      console.log(
-        colors.yellow(`Target directory "${CAMPSCAPES_DATA_DIRNAME}" existing`)
-      );
+      console.log(`WARNING: Target directory "${CAMPSCAPES_DATA_DIRNAME}" existing`)
     }
   } catch (e) {
-    console.log(
-      colors.yellow(`Creating target directory "${CAMPSCAPES_DATA_DIRNAME}"`)
-    );
+    console.log(`Creating target directory "${CAMPSCAPES_DATA_DIRNAME}"`)
     fs.mkdirSync(targetDir);
   }
 
   //getting all items
-  console.log(colors.yellow(`Getting items`));
+  console.log(`Getting items`);
   let allItems;
   const allItemsFilename = path.join(targetDir, "allItems.json");
   if (!options.downloadItems) {
@@ -65,12 +58,12 @@ async function main(options) {
   const allFilesById = keyBy(allFiles, "id");
 
   //getting relations
-  console.log(colors.yellow(`Getting relations`));
+  console.log(`Getting relations`);
   const relations = await api.getItemRelations();
   const relationsFilename = path.join(targetDir, "relations.json");
   fs.writeFileSync(relationsFilename, JSON.stringify(relations));
 
-  console.log(colors.yellow(`Getting camps`));
+  console.log(`Getting camps`);
   const rawCamps = allItems.filter(item => item.item_type === "site");
   let camps = await Promise.all(
     rawCamps.map(async function(camp) {
@@ -80,7 +73,7 @@ async function main(options) {
   const campsFilename = path.join(targetDir, "camps.json");
 
   //getting themes (tags)
-  console.log(colors.yellow(`Getting themes`));
+  console.log(`Getting themes`);
   const themes = await api.getTags();
   const themesFilename = path.join(targetDir, "themes.json");
   fs.writeFileSync(themesFilename, JSON.stringify(themes));
@@ -90,7 +83,7 @@ async function main(options) {
   fs.writeFileSync(campsNetworksFilename, JSON.stringify(camps));
 
   //getting icons
-  console.log(colors.yellow(`Getting icons`));
+  console.log(`Getting icons`);
   const rawIcons = allItems.filter(item => item.item_type === "icon");
   let icons = await Promise.all(
     rawIcons.map(async function(icon) {
@@ -99,7 +92,7 @@ async function main(options) {
   );
   const iconsFilename = path.join(targetDir, "icons.json");
 
-  console.log(colors.yellow(`Getting stories`));
+  console.log(`Getting stories`);
   let allPages = await api.getPages();
   const allExhibits = await api.getExhibits();
   const allExhibitsById = keyBy(allExhibits, "id");
@@ -246,7 +239,7 @@ async function main(options) {
   const introStepsFilename = path.join(targetDir, "introSteps.json");
   fs.writeFileSync(introStepsFilename, JSON.stringify(introSteps));
 
-  console.log(colors.yellow(`Getting simple pages`));
+  console.log(`Getting simple pages`);
 
   const simplePages = await api.getSimplePages();
   const simplePagesFilename = path.join(targetDir, "simplePages.json");
@@ -333,7 +326,7 @@ if (require.main === module) {
       targetDir = inputOption;
     }
   } catch (e) {
-    console.error(colors.red("Please specify a valid report directory."));
+    console.error("Please specify a valid report directory.");
     process.exit(1);
   }
   
@@ -343,8 +336,7 @@ if (require.main === module) {
       downloadItems: program.items,
       perPage: program.pagesize || 50,
     },
-    console,
-    colors
+    console
   );
 } else {
   module.exports = main;

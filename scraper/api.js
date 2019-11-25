@@ -198,7 +198,7 @@ async function getItem(id) {
 
 async function getItems(q={}) {
   try {
-    console.log("getItems", q)
+    console.log("getting items page:", q)
     var response = await request
     .get(`${BASE_URL}/items`)
     .query({key: API_KEY, ...q})
