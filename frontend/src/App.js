@@ -63,7 +63,8 @@ const App = () => {
         }),
         log: [
           ...state.log,
-          { type: "info", message: action.message.killed ? `Process killed\n` : `Process exited with code ${action.message.exitCode}\n` }
+          // { type: "info", message: action.message.killed ? `Process killed\n` : `Process exited with code ${action.message.exitCode}\n` }
+          { type: "info", message: action.message.killed ? `Process killed\n` : `Update successful` }
         ]
       }
     }
