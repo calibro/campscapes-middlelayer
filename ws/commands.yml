@@ -1,0 +1,4 @@
+port: 3000
+scripts:
+    scrape:
+        command: "/home/bitnami/htdocs/campscapes/scraper/do_scrape.sh"

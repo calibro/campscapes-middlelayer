@@ -1,0 +1,37 @@
+@import '~bootstrap/scss/bootstrap.scss';
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+}
+
+.log {
+  width: 50%;
+  height: 300px;
+  overflow-y: scroll;
+  overflow-x: auto;
+  background: black;
+  padding: 10px;
+
+  font-family: monospace;
+  
+  .msg-stdout {
+    color: white;
+  }
+  .msg-stderr {
+    color: tomato;
+  }
+  .msg-error {
+    color: crimson;
+  }
+  .msg-command_error {
+    color: crimson;
+  }
+  .msg-info {
+    color: blue;
+  }
+}
+
+.flex-1 {
+  flex: 1 1;
+}
