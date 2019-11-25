@@ -27,6 +27,7 @@ cp ../to_copy_in_build/* build/
 
 ## complete remote install
 On remote machine:
+
     ```
     cd /home/bitnami/htdocs/campscapes/ws/
     npm i
@@ -47,6 +48,7 @@ at the end of file: `/opt/bitnami/apache2/conf/httpd.conf`
 # start services with pm2
 
 On remote machine:
+
     ```
     cd /home/bitnami/htdocs/campscapes/ws
     pm2 start start.sh --name campscapes_ws
